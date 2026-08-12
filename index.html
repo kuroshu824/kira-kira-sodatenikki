@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#ffb6d9">
+<title>きらきら☆そだて日記</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    sans-serif;
+  background:
+    linear-gradient(160deg,#fff0f7,#f7edff);
+  color:#684c61;
+  overflow-x:hidden;
+}
+
+button{
+  font-family:inherit;
+  border:none;
+  cursor:pointer;
+}
+
+#app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  margin:auto;
+  position:relative;
+  padding-bottom:90px;
+}
+
+/* ---------- ヘッダー ---------- */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:12px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,150,200,.2);
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.title{
+  font-size:20px;
+  font-weight:900;
+  color:#ef77ae;
+}
+
+.level{
+  background:#fff0a9;
+  color:#8b6d1d;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.resources{
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+
+.resource{
+  flex:1;
+  background:white;
+  padding:8px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(150,90,130,.08);
+  font-size:13px;
+  font-weight:bold;
+}
+
+/* ---------- メイン ---------- */
+
+.main{
+  padding:14px;
+}
+
+.card{
+  background:rgba(255,255,255,.88);
+  border-radius:25px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 8px 25px rgba(160,90,140,.10);
+}
+
+/* ---------- キャラクター ---------- */
+
+.character-area{
+  position:relative;
+  min-height:350px;
+  border-radius:24px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 30%,#fff 0,#fff0f8 40%,#eadcff 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.sparkle{
+  position:absolute;
+  animation:float 3s infinite ease-in-out;
+  font-size:22px;
+}
+
+.s1{top:35px;left:25px}
+.s2{top:75px;right:30px;animation-delay:.8s}
+.s3{bottom:50px;left:45px;animation-delay:1.5s}
+.s4{bottom:90px;right:45px;animation-delay:2s}
+
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(0deg);opacity:.7}
+  50%{transform:translateY(-12px) rotate(12deg);opacity:1}
+}
+
+.character{
+  width:190px;
+  height:250px;
+  position:relative;
+  animation:breathe 2.5s infinite ease-in-out;
+}
+
+@keyframes breathe{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+
+/* 髪 */
+
+.hair{
+  position:absolute;
+  width:150px;
+  height:150px;
+  background:#8d5b8e;
+  border-radius:50% 50% 43% 43%;
+  top:15px;
+  left:20px;
+}
+
+.hair:before,
+.hair:after{
+  content:"";
+  position:absolute;
+  background:#8d5b8e;
+  width:50px;
+  height:100px;
+  top:55px;
+  border-radius:50%;
+}
+
+.hair:before{left:-20px}
+.hair:after{right:-20px}
+
+/* 顔 */
+
+.face{
+  position:absolute;
+  width:118px;
+  height:130px;
+  background:#ffe2d2;
+  border-radius:47% 47% 45% 45%;
+  top:45px;
+  left:36px;
+  z-index:2;
+}
+
+.eye{
+  position:absolute;
+  width:13px;
+  height:20px;
+  background:#4d3a50;
+  border-radius:50%;
+  top:54px;
+}
+
+.eye.left{left:30px}
+.eye.right{right:30px}
+
+.eye:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:7px;
+  background:white;
+  border-radius:50%;
+  left:3px;
+  top:2px;
+}
+
+.mouth{
+  position:absolute;
+  width:25px;
+  height:12px;
+  border-bottom:3px solid #d8799e;
+  border-radius:50%;
+  bottom:35px;
+  left:46px;
+}
+
+.cheek{
+  position:absolute;
+  width:22px;
+  height:10px;
+  background:#ffb5c9;
+  opacity:.65;
+  border-radius:50%;
+  top:78px;
+}
+
+.cheek.left{left:8px}
+.cheek.right{right:8px}
+
+/* 体 */
+
+.body{
+  position:absolute;
+  width:120px;
+  height:100px;
+  background:#ff9fc7;
+  border-radius:50px 50px 25px 25px;
+  top:170px;
+  left:35px;
+  z-index:1;
+}
+
+.ribbon{
+  position:absolute;
+  width:45px;
+  height:45px;
+  background:#ff6fae;
+  transform:rotate(45deg);
+  top:17px;
+  left:38px;
+  border-radius:8px;
+}
+
+.ribbon:after{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:25px;
+  background:#ffb4d4;
+  border-radius:50%;
+  top:10px;
+  left:10px;
+}
+
+/* ---------- なかよし度 ---------- */
+
+.status-title{
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.bar{
+  height:14px;
+  background:#f1e4ed;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.bar-inner{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff91bf,#c69cff);
+  border-radius:999px;
+  transition:.4s;
+}
+
+/* ---------- ボタン ---------- */
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.action{
+  padding:15px 8px;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 5px 15px rgba(120,80,120,.09);
+  font-size:14px;
+  font-weight:bold;
+  color:#76556d;
+  transition:.15s;
+}
+
+.action:active{
+  transform:scale(.94);
+}
+
+.action .icon{
+  font-size:27px;
+  display:block;
+  margin-bottom:4px;
+}
+
+/* ---------- タップ ---------- */
+
+.tap-button{
+  width:150px;
+  height:150px;
+  margin:15px auto;
+  display:block;
+  border-radius:50%;
+  background:linear-gradient(145deg,#ffb5d6,#c9a6ff);
+  color:white;
+  font-size:20px;
+  font-weight:900;
+  box-shadow:
+    0 12px 25px rgba(190,110,170,.25),
+    inset 0 4px 10px rgba(255,255,255,.5);
+  transition:.12s;
+}
+
+.tap-button:active{
+  transform:scale(.9);
+}
+
+/* ---------- ミッション ---------- */
+
+.mission{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  margin:8px 0;
+  background:#fff8fc;
+  border-radius:15px;
+}
+
+.mission-icon{
+  font-size:24px;
+}
+
+.mission-text{
+  flex:1;
+  font-size:13px;
+}
+
+.mission-reward{
+  font-size:12px;
+  font-weight:bold;
+  color:#e98ab4;
+}
+
+/* ---------- 下部ナビ ---------- */
+
+.nav{
+  position:fixed;
+  z-index:30;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:520px;
+  height:72px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(15px);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid #f3dce9;
+}
+
+.nav button{
+  background:none;
+  color:#92758b;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.nav button span{
+  display:block;
+  font-size:24px;
+  margin-bottom:2px;
+}
+
+.nav button.active{
+  color:#ef76ad;
+}
+
+/* ---------- ポップアップ ---------- */
+
+.overlay{
+  position:fixed;
+  z-index:100;
+  inset:0;
+  background:rgba(70,45,65,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:420px;
+  max-height:80vh;
+  overflow:auto;
+  background:white;
+  border-radius:28px;
+  padding:22px;
+  box-shadow:0 20px 60px rgba(50,20,50,.25);
+}
+
+.modal h2{
+  text-align:center;
+  color:#ec78ae;
+  margin-top:0;
+}
+
+.close{
+  width:100%;
+  padding:13px;
+  margin-top:15px;
+  background:#ffe2ef;
+  border-radius:15px;
+  color:#c45b8d;
+  font-weight:bold;
+}
+
+/* ---------- アイテム ---------- */
+
+.items{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.item{
+  padding:12px 5px;
+  background:#fff5fa;
+  border-radius:16px;
+  text-align:center;
+  font-size:12px;
+}
+
+.item .big{
+  font-size:35px;
+  display:block;
+}
+
+.item button{
+  margin-top:6px;
+  padding:7px 10px;
+  border-radius:10px;
+  background:#ffb0d0;
+  color:white;
+  font-weight:bold;
+  font-size:11px;
+}
+
+/* ---------- 浮遊テキスト ---------- */
+
+.floating{
+  position:fixed;
+  z-index:200;
+  pointer-events:none;
+  font-size:20px;
+  font-weight:900;
+  color:#f06ba7;
+  animation:up 900ms ease-out forwards;
+}
+
+@keyframes up{
+  0%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-90px) scale(1.3);
+  }
+}
+
+/* ---------- 通知 ---------- */
+
+.toast{
+  position:fixed;
+  z-index:300;
+  top:80px;
+  left:50%;
+  transform:translateX(-50%) translateY(-20px);
+  background:#6e5570;
+  color:white;
+  padding:12px 20px;
+  border-radius:999px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ---------- PC ---------- */
+
+@media(min-width:700px){
+  body{
+    padding:20px 0;
+  }
+
+  #app{
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 10px 60px rgba(100,60,100,.15);
+    background:#fff8fc;
+  }
+
+  .nav{
+    position:sticky;
+    margin:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<header class="header">
+  <div class="header-top">
+    <div class="title">🎀 きらきら☆そだて日記</div>
+    <div class="level" id="level">Lv.1</div>
+  </div>
+
+  <div class="resources">
+    <div class="resource">🪙 <span id="coins">100</span></div>
+    <div class="resource">💎 <span id="gems">5</span></div>
+    <div class="resource">🔥 <span id="streak">1</span>日</div>
+  </div>
+</header>
+
+<main class="main">
+
+<section class="card">
+
+  <div class="character-area">
+
+    <div class="sparkle s1">✨</div>
+    <div class="sparkle s2">🌸</div>
+    <div class="sparkle s3">💗</div>
+    <div class="sparkle s4">⭐</div>
+
+    <div class="character">
+
+      <div class="hair"></div>
+
+      <div class="face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+
+        <div class="cheek left"></div>
+        <div class="cheek right"></div>
+
+        <div class="mouth"></div>
+      </div>
+
+      <div class="body">
+        <div class="ribbon"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <h2 style="text-align:center;margin:12px 0 4px">
+    さくら
+  </h2>
+
+  <p style="text-align:center;margin:0 0 15px;font-size:13px">
+    「今日もいっしょに遊ぼうね♡」
+  </p>
+
+  <div class="status-title">
+    <span>💗 なかよし度</span>
+    <span><span id="friend">0</span>/100</span>
+  </div>
+
+  <div class="bar">
+    <div class="bar-inner" id="friendBar"></div>
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h3 style="margin-top:0">✨ きらりを集めよう！</h3>
+
+  <p style="text-align:center;font-size:13px">
+    タップするとコインと経験値をゲット！
+  </p>
+
+  <button class="tap-button" id="tapButton">
+    💗<br>
+    TAP!
+  </button>
+
+  <div style="text-align:center;font-size:12px;color:#9b8193">
+    経験値 <span id="exp">0</span>/<span id="nextExp">100</span>
+  </div>
+
+  <div class="bar" style="margin-top:7px">
+    <div class="bar-inner" id="expBar"></div>
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h3 style="margin-top:0">🎀 お世話しよう</h3>
+
+  <div class="actions">
+
+    <button class="action" onclick="feed()">
+      <span class="icon">🍰</span>
+      おやつ
+    </button>
+
+    <button class="action" onclick="present()">
+      <span class="icon">🎁</span>
+      プレゼント
+    </button>
+
+    <button class="action" onclick="talk()">
+      <span class="icon">💬</span>
+      おはなし
+    </button>
+
+    <button class="action" onclick="play()">
+      <span class="icon">🎮</span>
+      あそぶ
+    </button>
+
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h3 style="margin-top:0">🎯 今日のミッション</h3>
+
+  <div class="mission">
+    <div class="mission-icon">💗</div>
+    <div class="mission-text">
+      5回タップする
+      <div class="bar" style="height:7px;margin-top:5px">
+        <div class="bar-inner" id="tapMissionBar"></div>
+      </div>
+    </div>
+    <div class="mission-reward">🪙 +30</div>
+  </div>
+
+  <div class="mission">
+    <div class="mission-icon">🍰</div>
+    <div class="mission-text">
+      おやつを1回あげる
+    </div>
+    <div class="mission-reward">🪙 +20</div>
+  </div>
+
+  <div class="mission">
+    <div class="mission-icon">💬</div>
+    <div class="mission-text">
+      おはなしする
+    </div>
+    <div class="mission-reward">💎 +1</div>
+  </div>
+
+</section>
+
+</main>
+
+
+<nav class="nav">
+
+  <button class="active" onclick="home()">
+    <span>🏠</span>
+    ホーム
+  </button>
+
+  <button onclick="openCloset()">
+    <span>👗</span>
+    クローゼット
+  </button>
+
+  <button onclick="openRoom()">
+    <span>🛏️</span>
+    おへや
+  </button>
+
+  <button onclick="openCollection()">
+    <span>📖</span>
+    コレクション
+  </button>
+
+</nav>
+
+</div>
+
+
+<!-- モーダル -->
+
+<div class="overlay" id="overlay">
+
+  <div class="modal" id="modal"></div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const defaultData = {
+  coins:100,
+  gems:5,
+  friend:0,
+  level:1,
+  exp:0,
+  taps:0,
+  streak:1,
+  lastLogin:"",
+  clothes:["🎀"],
+  rooms:["🌸"],
+  collection:[],
+  missions:{
+    tap:false,
+    feed:false,
+    talk:false
+  }
+};
+
+let data =
+  JSON.parse(localStorage.getItem("kiraSodate"))
+  || defaultData;
+
+
+/* =========================
+   セーブ
+========================= */
+
+function save(){
+  localStorage.setItem(
+    "kiraSodate",
+    JSON.stringify(data)
+  );
+}
+
+
+/* =========================
+   表示更新
+========================= */
+
+function update(){
+
+  document.getElementById("coins").textContent =
+    data.coins;
+
+  document.getElementById("gems").textContent =
+    data.gems;
+
+  document.getElementById("friend").textContent =
+    data.friend;
+
+  document.getElementById("level").textContent =
+    "Lv."+data.level;
+
+  document.getElementById("exp").textContent =
+    data.exp;
+
+  document.getElementById("nextExp").textContent =
+    data.level * 100;
+
+  document.getElementById("streak").textContent =
+    data.streak;
+
+  document.getElementById("friendBar").style.width =
+    Math.min(data.friend,100)+"%";
+
+  document.getElementById("expBar").style.width =
+    Math.min(
+      data.exp/(data.level*100)*100,
+      100
+    )+"%";
+
+  document.getElementById("tapMissionBar").style.width =
+    Math.min(data.taps/5*100,100)+"%";
+
+  save();
+}
+
+
+/* =========================
+   タップ
+========================= */
+
+document
+  .getElementById("tapButton")
+  .addEventListener("click",tap);
+
+
+function tap(){
+
+  const gain =
+    Math.floor(Math.random()*4)+2;
+
+  data.coins += gain;
+  data.exp += gain;
+  data.taps++;
+
+  if(data.friend < 100){
+    data.friend++;
+  }
+
+  floatingText(
+    "＋"+gain+" 🪙"
+  );
+
+  if(data.taps >= 5 &&
+     !data.missions.tap){
+
+    data.missions.tap=true;
+    data.coins+=30;
+
+    toast(
+      "🎉 ミッション達成！ +30コイン"
+    );
+
+  }
+
+  levelCheck();
+  update();
+}
+
+
+/* =========================
+   レベルアップ
+========================= */
+
+function levelCheck(){
+
+  const need =
+    data.level * 100;
+
+  if(data.exp >= need){
+
+    data.exp -= need;
+    data.level++;
+
+    data.gems += 1;
+    data.coins += 50;
+
+    showModal(`
+      <h2>🎉 レベルアップ！</h2>
+      <p style="text-align:center;font-size:18px">
+        さくらが成長したよ！
+      </p>
+      <p style="text-align:center">
+        ⭐ Lv.${data.level}<br>
+        💎 宝石 +1<br>
+        🪙 コイン +50
+      </p>
+      <button class="close"
+        onclick="closeModal()">
+        うれしい♡
+      </button>
+    `);
+
+  }
+}
+
+
+/* =========================
+   おやつ
+========================= */
+
+function feed(){
+
+  if(data.coins < 15){
+
+    toast("🪙 コインが足りないよ！");
+    return;
+
+  }
+
+  data.coins -= 15;
+  data.friend =
+    Math.min(100,data.friend+5);
+
+  data.exp += 10;
+
+  if(!data.missions.feed){
+
+    data.missions.feed=true;
+    data.coins+=20;
+
+    toast(
+      "🍰 おやつありがとう！ +20コイン"
+    );
+
+  }else{
+
+    toast("🍰 おいしい〜♡");
+
+  }
+
+  levelCheck();
+  update();
+}
+
+
+/* =========================
+   プレゼント
+========================= */
+
+function present(){
+
+  if(data.coins < 40){
+
+    toast("🪙 コインが足りないよ！");
+    return;
+
+  }
+
+  data.coins -= 40;
+  data.friend =
+    Math.min(100,data.friend+12);
+
+  data.exp += 20;
+
+  toast("🎁 プレゼントありがとう♡");
+
+  levelCheck();
+  update();
+}
+
+
+/* =========================
+   会話
+========================= */
+
+function talk(){
+
+  const messages = [
+
+    "今日は何して遊ぶ？♡",
+
+    "いっしょにいると楽しいね！",
+
+    "もっともっと仲良くなりたいな✨",
+
+    "今日も会いに来てくれてうれしい！",
+
+    "次はどんなお洋服がいいかな？"
+
+  ];
+
+  const msg =
+    messages[
+      Math.floor(
+        Math.random()*messages.length
+      )
+    ];
+
+  data.gems += 1;
+  data.friend =
+    Math.min(100,data.friend+3);
+
+  if(!data.missions.talk){
+
+    data.missions.talk=true;
+
+    showModal(`
+      <h2>💬 おはなし</h2>
+      <p style="text-align:center;font-size:17px">
+        「${msg}」
+      </p>
+      <p style="text-align:center">
+        💎 宝石 +1
+      </p>
+      <button class="close"
+        onclick="closeModal()">
+        もっと話す♡
+      </button>
+    `);
+
+  }else{
+
+    showModal(`
+      <h2>💬 おはなし</h2>
+      <p style="text-align:center;font-size:17px">
+        「${msg}」
+      </p>
+      <button class="close"
+        onclick="closeModal()">
+        うん♡
+      </button>
+    `);
+
+  }
+
+  update();
+}
+
+
+/* =========================
+   あそぶ
+========================= */
+
+function play(){
+
+  const games=[
+    "じゃんけんしよう！✊",
+    "ハートを探してみよう♡",
+    "今日はどこにお出かけする？🌸",
+    "一緒にダンスしよ〜！💃"
+  ];
+
+  const msg=
+    games[Math.floor(Math.random()*games.length)];
+
+  data.coins+=10;
+  data.friend=
+    Math.min(100,data.friend+4);
+
+  toast(msg+" 🪙 +10");
+
+  update();
+}
+
+
+/* =========================
+   クローゼット
+========================= */
+
+function openCloset(){
+
+  showModal(`
+    <h2>👗 クローゼット</h2>
+
+    <div class="items">
+
+      <div class="item">
+        <span class="big">🎀</span>
+        ピンクリボン
+        <br>
+        <button onclick="buyItem('🎀',0)">
+          使用
+        </button>
+      </div>
+
+      <div class="item">
+        <span class="big">🌸</span>
+        さくらコーデ
+        <br>
+        <button onclick="buyItem('🌸',100)">
+          🪙100
+        </button>
+      </div>
+
+      <div class="item">
+        <span class="big">👑</span>
+        おひめさま
+        <br>
+        <button onclick="buyItem('👑',250)">
+          🪙250
+        </button>
+      </div>
+
+      <div class="item">
+        <span class="big">✨</span>
+        キラキラ
+        <br>
+        <button onclick="buyItem('✨',5,'gem')">
+          💎5
+        </button>
+      </div>
+
+      <div class="item">
+        <span class="big">🦋</span>
+        バタフライ
+        <br>
+        <button onclick="buyItem('🦋',180)">
+          🪙180
+        </button>
+      </div>
+
+      <div class="item">
+        <span class="big">💐</span>
+        フラワー
+        <br>
+        <button onclick="buyItem('💐',220)">
+          🪙220
+        </button>
+      </div>
+
+    </div>
+
+    <button class="close"
+      onclick="closeModal()">
+      閉じる
+    </button>
+  `);
+
+}
+
+
+/* =========================
+   アイテム購入
+========================= */
+
+function buyItem(item,cost,type="coin"){
+
+  if(data.clothes.includes(item)){
+
+    toast("もう持っているよ♡");
+    return;
+
+  }
+
+  if(type==="gem"){
+
+    if(data.gems<cost){
+
+      toast("💎 宝石が足りないよ！");
+      return;
+
+    }
+
+    data.gems-=cost;
+
+  }else{
+
+    if(data.coins<cost){
+
+      toast("🪙 コインが足りないよ！");
+      return;
+
+    }
+
+    data.coins-=cost;
+
+  }
+
+  data.clothes.push(item);
+
+  toast(
+    item+" ゲット！🎉"
+  );
+
+  update();
+  openCloset();
+}
+
+
+/* =========================
+   部屋
+========================= */
+
+function openRoom(){
+
+  showModal(`
+    <h2>🏠 マイルーム</h2>
+
+    <div style="
+      height:240px;
+      border-radius:20px;
+      background:
+      linear-gradient(
+        #fff0fa 0 65%,
+        #e5c9a8 65%
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:70px;
+    ">
+      🌸 🛏️ 🌷
+    </div>
+
+    <p style="text-align:center">
+      あなたのお部屋だよ♡
+    </p>
+
+    <button class="close"
+      onclick="closeModal()">
+      閉じる
+    </button>
+  `);
+
+}
+
+
+/* =========================
+   コレクション
+========================= */
+
+function openCollection(){
+
+  const count =
+    data.clothes.length;
+
+  showModal(`
+    <h2>📖 コレクション</h2>
+
+    <p style="text-align:center">
+      集めたアイテム
+    </p>
+
+    <div class="items">
+
+      ${data.clothes.map(
+        item=>`
+          <div class="item">
+            <span class="big">${item}</span>
+            GET!
+          </div>
+        `
+      ).join("")}
+
+    </div>
+
+    <p style="text-align:center;margin-top:15px">
+      🎀 ${count}個 / 全6個
+    </p>
+
+    <button class="close"
+      onclick="closeModal()">
+      閉じる
+    </button>
+  `);
+
+}
+
+
+/* =========================
+   モーダル
+========================= */
+
+function showModal(html){
+
+  document.getElementById("modal")
+    .innerHTML=html;
+
+  document.getElementById("overlay")
+    .classList.add("show");
+
+}
+
+function closeModal(){
+
+  document.getElementById("overlay")
+    .classList.remove("show");
+
+}
+
+
+/* =========================
+   通知
+========================= */
+
+function toast(text){
+
+  const el=
+    document.getElementById("toast");
+
+  el.textContent=text;
+
+  el.classList.add("show");
+
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },1800);
+
+}
+
+
+/* =========================
+   浮遊文字
+========================= */
+
+function floatingText(text){
+
+  const el=
+    document.createElement("div");
+
+  el.className="floating";
+  el.textContent=text;
+
+  el.style.left=
+    (40+Math.random()*20)+"%";
+
+  el.style.top="55%";
+
+  document.body.appendChild(el);
+
+  setTimeout(()=>{
+    el.remove();
+  },900);
+
+}
+
+
+/* =========================
+   ホーム
+========================= */
+
+function home(){
+
+  closeModal();
+
+}
+
+
+/* =========================
+   ログインボーナス
+========================= */
+
+function loginBonus(){
+
+  const today=
+    new Date().toISOString().slice(0,10);
+
+  if(data.lastLogin===today){
+    return;
+  }
+
+  data.lastLogin=today;
+
+  data.coins+=30;
+
+  toast(
+    "🎁 ログインボーナス！ +30コイン"
+  );
+
+  update();
+
+}
+
+
+/* =========================
+   起動
+========================= */
+
+loginBonus();
+update();
+
+</script>
+
+</body>
+</html>
